@@ -1,4 +1,3 @@
-// controllers/question.controller.js
 const Question = require('../models/Question');
 
 exports.createQuestion = async (req, res) => {

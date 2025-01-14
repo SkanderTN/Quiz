@@ -1,4 +1,3 @@
-// controllers/userController.js
 const User = require('../models/User');
 
 // Get all users
@@ -16,14 +15,12 @@ exports.createUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
-        // Validate required fields
         if (!username || !email || !password) {
             return res.status(400).json({ 
                 message: 'Username, email, and password are required' 
             });
         }
 
-        // Check if user already exists
         const existingUser = await User.findOne({ 
             $or: [{ email }, { username }] 
         });
@@ -37,7 +34,6 @@ exports.createUser = async (req, res) => {
         const user = new User({ username, email, password });
         await user.save();
 
-        // Don't send password in response
         const userResponse = user.toObject();
         delete userResponse.password;
 
@@ -65,8 +61,7 @@ exports.loginUser = async (req, res) => {
                 message: 'Invalid email or password' 
             });
         }
-
-        // Don't send password in response
+        
         const userResponse = user.toObject();
         delete userResponse.password;
 

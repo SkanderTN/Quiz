@@ -1,4 +1,3 @@
-// addQuestions.js
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Question = require('./models/Question');
@@ -179,16 +178,15 @@ async function addQuestions() {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to MongoDB');
 
-    // Delete existing questions (optional)
     await Question.deleteMany({});
     console.log('Cleared existing questions');
 
-    // Insert new questions
     const result = await Question.insertMany(questions);
     console.log(`Added ${result.length} questions successfully`);
 
     mongoose.connection.close();
   } catch (error) {
+
     console.error('Error:', error);
     mongoose.connection.close();
   }

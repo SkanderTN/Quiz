@@ -1,4 +1,3 @@
-// components/login/login.component.ts
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -46,6 +45,7 @@ export class LoginComponent {
         this.error = error.error?.message || 'An error occurred during login';
         this.isLoading = false;
       },
+      
       complete: () => {
         this.isLoading = false;
       }

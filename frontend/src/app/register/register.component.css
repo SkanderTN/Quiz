@@ -104,8 +104,11 @@ button{
 }
 
 .passdontmatch {
-    color: red; /* This will make the text red */
-    font-weight: bold; /* Optional: Makes the text bold for emphasis */
+    color: red; 
+    font-weight: bold; 
 }
 
+.icon {
+    margin-right: 10px;
+}
 

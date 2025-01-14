@@ -7,8 +7,13 @@ section{
   background: url(bg-login.jpeg) no-repeat;
   background-size: cover;
   background-position: center;
-  animation: animateBg 5s linear infinite;
+  animation: loginAnimateBg 5s linear infinite;
 
+}
+@keyframes loginAnimateBg {
+  100% {
+      filter: hue-rotate(360deg);
+  }
 }
 
 .welcome-box {

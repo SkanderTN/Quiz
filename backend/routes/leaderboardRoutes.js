@@ -1,7 +1,6 @@
 const express = require('express');
-const { getLeaderboard } = require('../controllers/leaderboardController'); // Import controller functions
+const { getLeaderboard } = require('../controllers/leaderboardController'); 
 const router = express.Router();
-
 
 
 // GET /leaderboard - Get leaderboard with total score

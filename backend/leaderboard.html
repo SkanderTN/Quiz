@@ -31,21 +31,19 @@
 
     <h1>Leaderboard</h1>
 
-    <!-- Section to display leaderboard -->
     <div id="leaderboard-container">
         <h2>Top Users</h2>
         <div id="leaderboard"></div>
     </div>
 
     <script>
-        // Function to fetch and display the leaderboard
         async function getLeaderboard() {
             try {
-                const response = await fetch('http://localhost:5000/leaderboard'); // Replace with your server URL if different
+                const response = await fetch('http://localhost:5000/leaderboard'); 
                 const leaderboard = await response.json();
 
                 const leaderboardContainer = document.getElementById('leaderboard');
-                leaderboardContainer.innerHTML = ''; // Clear existing leaderboard
+                leaderboardContainer.innerHTML = ''; 
 
                 leaderboard.forEach(user => {
                     const userDiv = document.createElement('div');
@@ -61,8 +59,6 @@
                 console.error('Error fetching leaderboard:', error);
             }
         }
-
-        // Initial fetch of leaderboard when page loads
         getLeaderboard();
     </script>
 
