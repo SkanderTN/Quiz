@@ -18,7 +18,8 @@ const questionSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ['Computer Science', 'Maths', 'General Knowledge', 'Sports']
-  }
+  },
+  versionKey: false
 });
 
 

@@ -105,3 +105,11 @@ button{
 .icon {
     margin-right: 10px;
 }
+
+.error-message {
+    color: yellow;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
