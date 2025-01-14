@@ -43,4 +43,13 @@ export class Welcome1Component implements OnInit {
       this.router.navigate(['/quiz']);
     }
   }
+
+  logout(): void {
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
+  }
+}
+
+function logout() {
+  throw new Error('Function not implemented.');
 }
