@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+// welcome1.component.ts
+import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { QuizService } from '../services/quiz.service';
 
 @Component({
   selector: 'app-welcome1',
@@ -11,24 +14,32 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./welcome1.component.css']
 })
 export class Welcome1Component implements OnInit {
+  private platformId = inject(PLATFORM_ID);
   username: string = '';
   selectedCategory: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private quizService: QuizService
+  ) {}
 
   ngOnInit(): void {
-    const user = localStorage.getItem('user');
-    this.username = user ? JSON.parse(user).username : 'Guest';
+    if (isPlatformBrowser(this.platformId)) {
+      const user = localStorage.getItem('user');
+      this.username = user ? JSON.parse(user).username : 'Guest';
+    } else {
+      this.username = 'Guest';
+    }
   }
-  
 
   selectCategory(category: string): void {
     this.selectedCategory = category;
   }
-
+  
   startQuiz(): void {
     if (this.selectedCategory) {
-      localStorage.setItem('quizCategory', this.selectedCategory);
+      this.quizService.loadQuestionsByCategory(this.selectedCategory);
+      this.quizService.setStoredCategory(this.selectedCategory);
       this.router.navigate(['/quiz']);
     }
   }

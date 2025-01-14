@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { input } from '@angular/core';
 import { Signal } from '@angular/core';
-import { QuizService } from '../../quiz.service';
+import { QuizService } from '../../services/quiz.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

@@ -1,15 +1,23 @@
-import { Component, inject } from '@angular/core';
+// quiz.component.ts
+import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { QuestionComponent } from './question/question.component';
-import { QuizService } from '../quiz.service';
+import { QuizService } from '../services/quiz.service';
 
 @Component({
   selector: 'quiz-app',
   standalone: true,
-  imports: [QuestionComponent],
+  imports: [CommonModule, QuestionComponent],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.css',
 })
-export class QuizComponent {
+export class QuizComponent implements OnInit {
   quizService = inject(QuizService);
-  title = 'Angular-quiz';
+  
+  ngOnInit() {
+    const category = this.quizService.getStoredCategory();
+    if (category) {
+      this.quizService.loadQuestionsByCategory(category);
+    }
+  }
 }

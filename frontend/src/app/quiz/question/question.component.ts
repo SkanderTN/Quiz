@@ -1,18 +1,15 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { QuizService } from '../../services/quiz.service';
 import { AnswerComponent } from '../answer/answer.component';
-import { QuizService } from '../../quiz.service';
+
 @Component({
-  selector: 'quiz-question',
+  selector: 'app-question',
   standalone: true,
-  imports: [AnswerComponent],
+  imports: [CommonModule, AnswerComponent],
   templateUrl: './question.component.html',
   styleUrl: './question.component.css',
 })
 export class QuestionComponent {
   quizService = inject(QuizService);
-  anwerText = computed(() => this.quizService.currentQuestionAnswers());
-
-  getAnswerbyIndex(i: number) {
-    return this.anwerText()[i];
-  }
 }
