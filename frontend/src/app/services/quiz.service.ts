@@ -59,6 +59,7 @@ export class QuizService {
       .sort((a, b) => a.sort - b.sort)
       .map((a) => a.value);
   }
+  
   selectAnswer(answerText: string): void {
     this.currentAnswer.set(answerText);
     const correctAnswerCount =
@@ -79,16 +80,6 @@ export class QuizService {
     this.currentAnswer.set(null);
   }
   
-
-
-  
-  restart(): void {
-    this.currentQuestionIndex.set(0);
-    this.correctAnswerCount.set(0);
-  }
-  
-
-
 getStoredCategory(): string | null {
   if (isPlatformBrowser(this.platformId)) {
     return localStorage.getItem('quizCategory');

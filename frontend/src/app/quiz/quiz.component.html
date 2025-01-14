@@ -12,7 +12,7 @@
             {{ quizService.questions().length }} right.
           </div>
         </div>
-        <div (click)="quizService.restart()" class="next-button">Restart</div>
+        <button [routerLink]="['/welcome']" class="next-button">Back to the menu</button>
       </div>
     } @else {
       <div>
