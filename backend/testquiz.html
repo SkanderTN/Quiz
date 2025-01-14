@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #quiz-container {
+            margin-top: 20px;
+        }
+        .quiz {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+        .quiz h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .quiz p {
+            margin: 5px 0;
+        }
+        #quiz-form, #get-quiz-form {
+            margin-top: 20px;
+        }
+        input, textarea {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quiz App</h1>
+
+  
+    <!-- Form to fetch quiz by ID -->
+    <div id="get-quiz-form">
+        <h2>Get Quiz by ID</h2>
+        <label for="quizId">Quiz ID:</label>
+        <input type="number" id="quizId" placeholder="Enter quiz ID" required>
+
+        <button onclick="getQuizById()">Get Quiz</button>
+
+        <div id="single-quiz" class="quiz" style="display: none;"></div>
+    </div>
+
+    <script>
+       
+
+        // Function to fetch quiz by ID
+        async function getQuizById() {
+    const quizId = document.getElementById('quizId').value;
+
+    if (!quizId) {
+        alert('Please enter a quiz ID.');
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:5000/getQuizById/${quizId}`);
+        if (response.status === 404) {
+            alert('Quiz not found');
+            return;
+        }
+
+        const quiz = await response.json();
+        const singleQuiz = document.getElementById('single-quiz');
+        singleQuiz.style.display = 'block';
+
+        // Combine correct and incorrect answers, then shuffle them
+        const allAnswers = [quiz.correctAnswer, ...quiz.incorrectAnswers];
+        shuffleArray(allAnswers); // Shuffle the answers
+
+        // Display the question and shuffled answers
+        singleQuiz.innerHTML = `
+            <h3>${quiz.question}</h3>
+            <div id="answers">
+                ${allAnswers.map(answer => `<div class="answer-box">${answer}</div>`).join('')}
+            </div>
+        `;
+    } catch (error) {
+        console.error('Error fetching quiz:', error);
+    }
+}
+
+// Function to shuffle an array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+        // Initial fetch of quizzes when page loads
+        getQuizzes();
+    </script>
+
+
+
+<style>
+    #answers {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .answer-box {
+        padding: 10px 15px;
+        background-color: #e0e0e0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        min-width: 100px;
+    }
+    .answer-box:hover {
+        background-color: #d6d6d6;
+    }
+</style>
+
+
+</body>
+</html>

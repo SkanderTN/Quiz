@@ -1,0 +1,23 @@
+<section>
+  <div class="welcome-box">
+      <h2>Welcome, {{ username }}!</h2>
+      <div class="category-section">
+          <h3>Choose Your Quiz Category</h3>
+          <div class="category-grid">
+              <div class="category-card" (click)="selectCategory('Computer Science')" [class.selected]="selectedCategory === 'tech'">
+                  <span>Computer Science</span>
+              </div>
+              <div class="category-card" (click)="selectCategory('Maths')" [class.selected]="selectedCategory === 'sports'">
+                  <span>Maths</span>
+              </div>
+              <div class="category-card" (click)="selectCategory('General Knowledge')" [class.selected]="selectedCategory === 'geography'">
+                  <span>General Knowledge</span>
+              </div>
+              <div class="category-card" (click)="selectCategory('Sports')" [class.selected]="selectedCategory === 'general'">
+                  <span>Sports</span>
+              </div>
+          </div>
+      </div>
+      <button type="button" (click)="startQuiz()" [disabled]="!selectedCategory">Start Quiz</button>
+  </div>
+</section>

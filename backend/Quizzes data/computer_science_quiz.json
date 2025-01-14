@@ -1,0 +1,102 @@
+[
+    {
+        "id": 1,
+        "question": "What is the time complexity of binary search?",
+        "correctAnswer": "O(log n)",
+        "incorrectAnswers": [
+            "O(n)",
+            "O(n^2)",
+            "O(1)"
+        ]
+    },
+    {
+        "id": 2,
+        "question": "Which of the following is a programming paradigm?",
+        "correctAnswer": "Object-Oriented Programming",
+        "incorrectAnswers": [
+            "SQL",
+            "HTML",
+            "CSS"
+        ]
+    },
+    {
+        "id": 3,
+        "question": "What does 'HTTP' stand for?",
+        "correctAnswer": "HyperText Transfer Protocol",
+        "incorrectAnswers": [
+            "HyperTool Transfer Protocol",
+            "HyperText Transmission Protocol",
+            "Home Text Transfer Protocol"
+        ]
+    },
+    {
+        "id": 4,
+        "question": "Which of the following is a valid variable name in JavaScript?",
+        "correctAnswer": "myVariable",
+        "incorrectAnswers": [
+            "1variable",
+            "my-variable",
+            "$variable#"
+        ]
+    },
+    {
+        "id": 5,
+        "question": "What does CSS stand for?",
+        "correctAnswer": "Cascading Style Sheets",
+        "incorrectAnswers": [
+            "Creative Style Sheets",
+            "Computer Style Sheets",
+            "Cascading System Sheets"
+        ]
+    },
+    {
+        "id": 6,
+        "question": "What is the full form of 'RAM'?",
+        "correctAnswer": "Random Access Memory",
+        "incorrectAnswers": [
+            "Read Access Memory",
+            "Random Algorithm Memory",
+            "Rapid Access Memory"
+        ]
+    },
+    {
+        "id": 7,
+        "question": "Which of the following data structures is used for implementing a LIFO (Last In First Out) system?",
+        "correctAnswer": "Stack",
+        "incorrectAnswers": [
+            "Queue",
+            "Array",
+            "Tree"
+        ]
+    },
+    {
+        "id": 8,
+        "question": "What does 'SQL' stand for?",
+        "correctAnswer": "Structured Query Language",
+        "incorrectAnswers": [
+            "Simple Query Language",
+            "System Query Language",
+            "Standard Query Language"
+        ]
+    },
+    {
+        "id": 9,
+        "question": "Which algorithm is commonly used for searching in a sorted array?",
+        "correctAnswer": "Binary Search",
+        "incorrectAnswers": [
+            "Linear Search",
+            "Selection Sort",
+            "Quick Sort"
+        ]
+    },
+    {
+        "id": 10,
+        "question": "Which of the following is a commonly used version control system?",
+        "correctAnswer": "Git",
+        "incorrectAnswers": [
+            "SVN",
+            "Mercurial",
+            "Perforce"
+        ]
+    }
+]

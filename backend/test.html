@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management</title>
+</head>
+<body>
+
+  <h1>Create User</h1>
+  <form id="userForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <button type="submit">Create User</button>
+  </form>
+
+  <h2>Login</h2>
+  <form id="loginForm">
+    <label for="loginEmail">Email:</label><br>
+    <input type="email" id="loginEmail" name="loginEmail" required><br><br>
+
+    <label for="loginPassword">Password:</label><br>
+    <input type="password" id="loginPassword" name="loginPassword" required><br><br>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <h2>Forgot Password</h2>
+  <form id="forgotPasswordForm">
+    <label for="forgotPasswordEmail">Email:</label><br>
+    <input type="email" id="forgotPasswordEmail" name="forgotPasswordEmail" required><br><br>
+    <button type="submit">Request Password Reset</button>
+  </form>
+
+  <h2>Reset Password</h2>
+  <form id="resetPasswordForm">
+    <label for="passwordToken">Reset Token:</label><br>
+    <input type="text" id="passwordToken" name="passwordToken" required><br><br>
+
+    <label for="newPassword">New Password:</label><br>
+    <input type="password" id="newPassword" name="newPassword" required><br><br>
+
+    <button type="submit">Reset Password</button>
+  </form>
+
+  <!-- Delete User Section -->
+  <h2>Delete User</h2>
+  <form id="deleteForm">
+    <label for="deleteName">Name of User to Delete:</label><br>
+    <input type="text" id="deleteName" name="deleteName" required><br><br>
+
+    <button type="submit">Delete User</button>
+  </form>
+
+  <p id="response"></p>
+
+  <script>
+
+    // Create User
+    document.getElementById('userForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('http://localhost:5000/addUser', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const result = await response.json();
+        document.getElementById('response').innerText = 'User created: ' + JSON.stringify(result);
+      } catch (error) {
+        document.getElementById('response').innerText = 'Error: ' + error.message;
+      }
+    });
+
+
+
+
+
+    // Login
+    document.getElementById('loginForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        const response = await fetch('http://localhost:5000/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const result = await response.json();
+        document.getElementById('response').innerText = 'Login successful: ' + JSON.stringify(result);
+      } catch (error) {
+        document.getElementById('response').innerText = 'Error: ' + error.message;
+      }
+    });
+
+
+
+
+
+
+
+
+    // Forgot Password
+    document.getElementById('forgotPasswordForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById('forgotPasswordEmail').value;
+
+      try {
+        const response = await fetch('http://localhost:5000/forgotpassword', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          document.getElementById('response').innerText = `Password reset requested successfully. Token: ${result.token}`;
+        } else {
+          document.getElementById('response').innerText = `Error: ${result.message}`;
+        }
+      } catch (error) {
+        document.getElementById('response').innerText = 'Error: ' + error.message;
+      }
+    });
+
+    // Reset Password
+    document.getElementById('resetPasswordForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const token = document.getElementById('passwordToken').value;
+      const newPassword = document.getElementById('newPassword').value;
+
+      try {
+        const response = await fetch('http://localhost:5000/resetpassword', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token, newPassword })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          document.getElementById('response').innerText = 'Password reset successful! You can now login with your new password.';
+        } else {
+          document.getElementById('response').innerText = `Error: ${result.message}`;
+        }
+      } catch (error) {
+        document.getElementById('response').innerText = 'Error: ' + error.message;
+      }
+    });
+
+
+
+
+
+    // Delete User
+    document.getElementById('deleteForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const deleteName = document.getElementById('deleteName').value;
+
+      try {
+        const response = await fetch(`http://localhost:5000/deleteUserByName/${deleteName}`, {
+          method: 'DELETE'
+        });
+
+        const result = await response.json();
+        document.getElementById('response').innerText = response.ok
+          ? 'User deleted successfully: ' + JSON.stringify(result)
+          : 'Error: ' + result.message;
+      } catch (error) {
+        document.getElementById('response').innerText = 'Error: ' + error.message;
+      }
+    });
+    
+  </script>
+
+</body>
+</html>

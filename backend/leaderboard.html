@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #leaderboard-container {
+            margin-top: 20px;
+        }
+        .user {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+        .user h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .user p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Leaderboard</h1>
+
+    <!-- Section to display leaderboard -->
+    <div id="leaderboard-container">
+        <h2>Top Users</h2>
+        <div id="leaderboard"></div>
+    </div>
+
+    <script>
+        // Function to fetch and display the leaderboard
+        async function getLeaderboard() {
+            try {
+                const response = await fetch('http://localhost:5000/leaderboard'); // Replace with your server URL if different
+                const leaderboard = await response.json();
+
+                const leaderboardContainer = document.getElementById('leaderboard');
+                leaderboardContainer.innerHTML = ''; // Clear existing leaderboard
+
+                leaderboard.forEach(user => {
+                    const userDiv = document.createElement('div');
+                    userDiv.classList.add('user');
+                    userDiv.innerHTML = `
+                        <h3>${user.name}</h3>
+                        <p><strong>Total Score:</strong> ${user.totalScore}</p>
+                        <p><strong>Scores:</strong> ${user.scores.join(', ')}</p>
+                    `;
+                    leaderboardContainer.appendChild(userDiv);
+                });
+            } catch (error) {
+                console.error('Error fetching leaderboard:', error);
+            }
+        }
+
+        // Initial fetch of leaderboard when page loads
+        getLeaderboard();
+    </script>
+
+</body>
+</html>
