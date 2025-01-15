@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Question = require('./models/Question');
 
 const questions = [
-  // Computer Science Questions
+  //-----Computer Science Questions---
   {
     question: "What does RAM stand for?",
     correctAnswer: "Random Access Memory",
@@ -45,7 +45,7 @@ const questions = [
     category: "Computer Science"
   },
 
-  // Mathematics Questions
+  //----Mathematics Questions------
   {
     question: "What is the value of π (pi) to two decimal places?",
     correctAnswer: "3.14",
@@ -87,7 +87,7 @@ const questions = [
     category: "Maths"
   },
 
-  // General Knowledge Questions
+  //----General Knowledge Questions----
   {
     question: "What is the largest ocean on Earth?",
     correctAnswer: "Pacific Ocean",
@@ -129,7 +129,7 @@ const questions = [
     category: "General Knowledge"
   },
 
-  // Sports Questions
+  //-----Sports Questions----
   {
     question: "Which country won the FIFA World Cup in 2018?",
     correctAnswer: "France",

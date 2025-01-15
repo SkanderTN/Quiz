@@ -1,6 +1,6 @@
 const User = require('../models/User');
 
-// Get all users
+//get all users
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.find().select('-password');
@@ -10,7 +10,7 @@ exports.getUsers = async (req, res) => {
     }
 };
 
-// Create new user
+//create new user
 exports.createUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -43,7 +43,7 @@ exports.createUser = async (req, res) => {
     }
 };
 
-// Login user
+//login user
 exports.loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;

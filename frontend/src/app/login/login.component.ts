@@ -38,6 +38,7 @@ export class LoginComponent {
       next: (response) => {
         console.log('Login successful:', response);
         localStorage.setItem('user', JSON.stringify(response.user));
+        localStorage.setItem('userId', response.user._id); 
         this.router.navigate(['/welcome']);
       },
       error: (error) => {

@@ -9,13 +9,17 @@ import { questionInterface } from '../quiz/models/quiz.model';
 export class QuizService {
   private platformId = inject(PLATFORM_ID);
   private apiUrl = 'http://localhost:5000/api/questions';
+  private userApiUrl = 'http://localhost:5000/api/users';
+
   questions = signal<questionInterface[]>([]);
   currentQuestionIndex = signal<number>(0);
   currentAnswer = signal<string | null>(null);
   correctAnswerCount = signal<number>(0);
   isLoading = signal<boolean>(false);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+
+  ) {}
 
   loadQuestionsByCategory(category: string) {
     this.isLoading.set(true);
@@ -76,10 +80,65 @@ export class QuizService {
   onNextQuestion(): void {
     if (this.currentQuestionIndex() < this.questions().length ) {
       this.currentQuestionIndex.set(this.currentQuestionIndex() + 1);
+      if (this.showResult()) {
+        this.saveScore();}
     }
     this.currentAnswer.set(null);
   }
   
+  private saveScore(): void {
+    const category = this.getStoredCategory();
+    let userId = localStorage.getItem('userId');
+    
+    if (!userId) {
+      const userStr = localStorage.getItem('user');
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        userId = user._id || user.id;
+      }
+    }
+    
+    if (!category || !userId) {
+      console.error('Missing category or userId', { category, userId });
+      return;
+    }
+
+    const categoryIndex = this.getCategoryIndex(category);
+    if (categoryIndex === -1) {
+      console.error('Invalid category:', category);
+      return;
+    }
+
+    console.log('Saving score:', {
+      userId,
+      categoryIndex,
+      score: this.correctAnswerCount()
+    });
+
+    this.http.patch(`${this.userApiUrl}/score/${userId}`, {
+      categoryIndex,
+      score: this.correctAnswerCount()
+    }).subscribe({
+      next: (response) => {
+        console.log('Score updated successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error updating score:', error);
+      }
+    });
+  }
+
+  private getCategoryIndex(category: string): number {
+    const categories = [
+      'Computer Science',
+      'Maths',
+      'General Knowledge',
+      'Sports'
+    ];
+    return categories.indexOf(category);
+  }
+
+
 getStoredCategory(): string | null {
   if (isPlatformBrowser(this.platformId)) {
     return localStorage.getItem('quizCategory');

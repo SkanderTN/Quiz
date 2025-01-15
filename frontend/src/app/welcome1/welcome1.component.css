@@ -1,19 +1,27 @@
-section{
+section {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+@keyframes loginAnimateBg {
+  100% {
+      filter: hue-rotate(360deg);
+  }
+}
+
+.bg-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
   background: url(bg-login.jpeg) no-repeat;
   background-size: cover;
   background-position: center;
   animation: loginAnimateBg 5s linear infinite;
-
-}
-@keyframes loginAnimateBg {
-  100% {
-      filter: hue-rotate(360deg);
-  }
+  z-index: -1;
 }
 
 .welcome-box {
@@ -88,7 +96,7 @@ h3 {
 }
 
 button {
-  width: 100%;
+  width: 120%;
   max-width: 200px;
   height: 40px;
   border-radius: 40px;
@@ -128,11 +136,37 @@ button:disabled {
   transition: all 0.3s ease;
 }
 
-.logout-button:hover {
-  background: #0095ff;
-  color: #fff;
-}
 
 .logout-button {
   right: 20px;
+}
+
+.logout-section {
+  position: fixed;
+  top: 20px;
+  right: 40px;
+  z-index: 100;  
+}
+
+.leaderboard-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.leaderboard-button-container {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.icon {
+  margin-top: 0%;
 }

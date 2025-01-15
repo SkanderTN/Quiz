@@ -1,5 +1,5 @@
 // welcome1.component.ts
-import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,8 @@ import { QuizService } from '../services/quiz.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './welcome1.component.html',
-  styleUrls: ['./welcome1.component.css']
+  styleUrls: ['./welcome1.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Welcome1Component implements OnInit {
   private platformId = inject(PLATFORM_ID);
@@ -31,7 +32,9 @@ export class Welcome1Component implements OnInit {
       this.username = 'Guest';
     }
   }
-
+  goToLeaderboard() {
+    this.router.navigate(['/leaderboard']);
+  }
   selectCategory(category: string): void {
     this.selectedCategory = category;
   }
@@ -50,6 +53,3 @@ export class Welcome1Component implements OnInit {
   }
 }
 
-function logout() {
-  throw new Error('Function not implemented.');
-}

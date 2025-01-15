@@ -19,7 +19,6 @@ const questionSchema = new mongoose.Schema({
     required: true,
     enum: ['Computer Science', 'Maths', 'General Knowledge', 'Sports']
   },
-  versionKey: false
 });
 
 

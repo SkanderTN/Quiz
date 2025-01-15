@@ -5,26 +5,25 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const questionRoutes = require('./routes/questionRoutes');
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
 
-// Middleware
+//middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
+//routes
 app.use('/api/users', userRoutes);
 app.use('/api/questions', questionRoutes);
 
-// Error handling middleware
+//Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: 'Something went wrong!' });
 });
 
-// MongoDB Connection
+//MongoDB Connection
 const MONGODB_URI = process.env.MONGO_URI;
 mongoose
     .connect(MONGODB_URI)
