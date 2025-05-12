@@ -9,6 +9,7 @@ router.get('/test', (req, res) => {
 router.get('/', userController.getUsers);
 router.post('/register', userController.createUser);
 router.post('/login', userController.loginUser);
+
 router.patch('/score/:userId', async (req, res) => {
     console.log('Received score update request:', {
         params: req.params,
