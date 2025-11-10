@@ -8,11 +8,17 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(): boolean {
-    const isLoggedIn = !!localStorage.getItem('user'); 
+    // When running server-side (SSR) there is no `window`/`localStorage`.
+    // Allow activation during SSR to avoid crashes; client navigation will enforce auth.
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return true;
+    }
+
+    const isLoggedIn = !!localStorage.getItem('user');
     if (!isLoggedIn) {
-      this.router.navigate(['/login']); 
+      this.router.navigate(['/login']);
       return false;
     }
-    return true; 
+    return true;
   }
 }
